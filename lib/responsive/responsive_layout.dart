@@ -8,8 +8,8 @@ class ResponsiveLayout extends StatefulWidget {
   final Widget mobileScreenLayout;
 
   const ResponsiveLayout({Key? key,
-    required this.mobileScreenLayout,
     required this.webScreenLayout,
+    required this.mobileScreenLayout,
   }) : super(key: key);
 
   @override

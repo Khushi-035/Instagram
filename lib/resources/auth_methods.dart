@@ -40,17 +40,17 @@ class AuthMethods {
         String photoUrl = await StorageMethods()
             .uploadImageToStorage('profilePics', file, false);
 
-        model.User user = model.User(
-          username: username,
+        model.User _user = model.User(
+          email: email,          
           uid: cred.user!.uid,
           photoUrl: photoUrl,
-          email: email,
+          username: username,
           bio: bio,
           followers: [],
           following: [],
         );
 
-        await _firestore.collection("users").doc(cred.user!.uid).set(user.toJson()  );
+        await _firestore.collection("users").doc(cred.user!.uid).set(_user.toJson()  );
 
         //   await _firestore.collection("users").add({
         //     'username': username,
@@ -64,12 +64,12 @@ class AuthMethods {
 
         res = 'success';
       }
-    } on FirebaseAuthException catch (err) {
-      if (err.code == 'invalid-email') {
-        res = "The email is badly formatted";
-      } else if (err.code == "weak-password") {
-        res = "Password should be at least 6 characters";
-      }
+    // } on FirebaseAuthException catch (err) {
+    //   if (err.code == 'invalid-email') {
+    //     res = "The email is badly formatted";
+    //   } else if (err.code == "weak-password") {
+    //     res = "Password should be at least 6 characters";
+    //   }
     } catch (err) {
       res = err.toString();
     }

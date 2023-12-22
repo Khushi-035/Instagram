@@ -22,36 +22,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
   final TextEditingController _descriptionController = TextEditingController();
   bool _isLoading = false;
 
-  void postImage(
-    String uid,
-    String username,
-    String profImage,
-  ) async {
-    setState(() {
-       _isLoading = true;
-    });
-    
-   
-    try {
-      String res = await FirestoreMethods().uploadPost(
-          _descriptionController.text, _file!, uid, username, profImage);
-
-      if (res == 'success') {
-        setState(() {
-          _isLoading = false;
-        });
-        showSnackBar('Posted', context);
-        clearImage();
-      } else {
-        setState(() {
-          _isLoading = false;
-        });
-        showSnackBar(res, context);
-      }
-    } catch (e) {
-      showSnackBar(e.toString(), context);
-    }
-  }
+  
 
   _selectImage(BuildContext parentcontext) async {
     return showDialog(
@@ -101,6 +72,37 @@ class _AddPostScreenState extends State<AddPostScreen> {
             ],
           );
         });
+  }
+
+  void postImage(
+    String uid,
+    String username,
+    String profImage,
+  ) async {
+    setState(() {
+       _isLoading = true;
+    });
+    
+   
+    try {
+      String res = await FirestoreMethods().uploadPost(
+          _descriptionController.text, _file!, uid, username, profImage);
+
+      if (res == 'success') {
+        setState(() {
+          _isLoading = false;
+        });
+        showSnackBar('Posted', context);
+        clearImage();
+      } else {
+        setState(() {
+          _isLoading = false;
+        });
+        showSnackBar(res, context);
+      }
+    } catch (e) {
+      showSnackBar(e.toString(), context);
+    }
   }
 
   void clearImage() {
